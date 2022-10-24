@@ -52,7 +52,7 @@
           :info="{
             type: '推荐歌曲',
             content: '为你精心推荐',
-            more: '查看更多'
+            more: '查看更多',
           }"
         ></ContentTop>
         <!-- 歌曲 -->
@@ -62,7 +62,7 @@
             v-for="item in recommendList"
             :key="item.id"
           >
-            <image :src="item.picUrl"></image>
+            <image :src="item.picUrl" mode="aspectFill"></image>
             <text class="recommend-scroll-item-text">{{ item.name }}</text>
           </view>
         </scroll-view>
@@ -74,7 +74,7 @@
           :info="{
             type: '排行榜',
             content: '热歌风向标',
-            more: '查看更多'
+            more: '查看更多',
           }"
         ></ContentTop>
         <swiper
@@ -115,7 +115,7 @@
 import ContentTop from './ContentTop'
 export default {
   components: {
-    ContentTop
+    ContentTop,
   },
   data() {
     return {
@@ -124,7 +124,7 @@ export default {
       // 推荐歌曲数据
       recommendList: [],
       // 排行榜
-      hotSongList: []
+      hotSongList: [],
     }
   },
   mounted() {
@@ -135,8 +135,8 @@ export default {
   methods: {
     //   获取轮播图数据
     async getSwiperList() {
-      const res = await this.$request({
-        url: '/banner?type=2'
+      const res = await this.$http({
+        url: '/banner?type=2',
       })
       if (res.code === 200) {
         this.swiperList = res.banners || []
@@ -144,8 +144,8 @@ export default {
     },
     // 获取推荐歌曲数据
     async getRecommendList() {
-      const res = await this.$request({
-        url: '/personalized?limit=10'
+      const res = await this.$http({
+        url: '/personalized?limit=10',
       })
       if (res.code === 200) {
         this.recommendList = res.result || []
@@ -153,44 +153,47 @@ export default {
     },
     // 获取排行榜数据
     async getHotSongList() {
-      const res = await this.$request({
-        url: '/toplist'
+      const res = await this.$http({
+        url: '/toplist',
       })
       if (res.code === 200) {
         // /playlist/detail?id=19723756
         let topNameList = res.list.slice(0, 4)
         let index = 0
         while (index < 4) {
-          let topList = await this.$request({
-            url: `/playlist/detail?id=${topNameList[index].id}`
+          let topList = await this.$http({
+            url: `/playlist/detail?id=${topNameList[index].id}`,
           })
           if (topList.code === 200) {
             let list = topList.playlist.tracks.slice(0, 3)
             this.hotSongList.push({
               title: topNameList[index].name,
-              list
+              list,
             })
           }
           index++
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="less" scope>
 .content {
   padding: 0rpx 10rpx;
+
   /* 导航栏 */
   .content-navbar {
     display: flex;
     justify-content: space-around;
     padding: 20rpx 0rpx;
+
     .content-navbar-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+
       .item-iconfont {
         margin-bottom: 15rpx;
         height: 80rpx;
@@ -200,30 +203,36 @@ export default {
         align-items: center;
         background: #e14b30;
         border-radius: 50%;
+
         & .iconfont {
           font-size: 45rpx;
           color: #fff;
         }
       }
+
       & text {
         font-size: 24rpx;
       }
     }
   }
+
   /* 推荐歌曲 */
   .recommend {
     .recommend-scroll {
       white-space: nowrap;
       height: 250rpx;
+
       .recommend-scroll-item {
         display: inline-block;
         width: 200rpx;
         height: 100%;
         margin-right: 20rpx;
+
         & image {
           width: 200rpx;
           height: 200rpx;
         }
+
         .recommend-scroll-item-text {
           overflow: hidden;
           text-overflow: ellipsis;
@@ -234,14 +243,17 @@ export default {
       }
     }
   }
+
   /* 排行榜 */
   .rank {
     .rank-swiper {
       height: 400rpx;
+
       .rank-swiper-title {
         font-size: 30rpx;
         margin-bottom: 20rpx;
       }
+
       .rank-swiper-item {
         display: flex;
         align-items: center;
@@ -249,10 +261,12 @@ export default {
         height: 100rpx;
         width: 96%;
         background: #fbfbfb;
+
         & image {
           width: 100rpx;
           height: 100%;
         }
+
         .rank-swiper-item-text {
           margin-left: 30rpx;
         }

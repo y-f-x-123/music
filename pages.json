@@ -1,57 +1,61 @@
 {
-  "easycom": {
-    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
-  },
-  "pages": [
-    {
-      "path": "pages/login/login",
-      "style": {}
-    },
-    {
-      "path": "pages/person/person",
-      "style": {
-        "navigationBarTitleText": "个人中心"
-      }
-    },
-    {
-      "path": "pages/index/index",
-      "style": {}
-    },
-    {
-      "path": "pages/video/video",
-      "style": {}
-    }
-  ],
-  "globalStyle": {
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "云音乐",
-    "navigationBarBackgroundColor": "#E14B30",
-    "backgroundColor": "#fff"
-  },
-  "tabBar": {
-    "color": "#333",
-    "selectedColor": "#d81e06",
-    "backgroundColor": "#fff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "static/image/home.png",
-        "selectedIconPath": "static/image/s_home.png",
-        "text": "主页"
-      },
-      {
-        "pagePath": "pages/video/video",
-        "iconPath": "static/image/video.png",
-        "selectedIconPath": "static/image/s_video.png",
-        "text": "视频"
-      },
-      {
-        "pagePath": "pages/person/person",
-        "iconPath": "static/image/person.png",
-        "selectedIconPath": "static/image/s_person.png",
-        "text": "个人中心"
-      }
-    ]
-  },
-  "uniIdRouter": {}
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [{
+			"path": "pages/video/video",
+			"style": {
+				"navigationBarTitleText": "火热视频"
+			}
+		},
+		{
+			"path": "pages/person/person",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {}
+		},
+
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		}
+
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "云音乐",
+		"navigationBarBackgroundColor": "#E14B30",
+		"backgroundColor": "#fff"
+	},
+	"tabBar": {
+		"color": "#333",
+		"selectedColor": "#d81e06",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/image/home.png",
+				"selectedIconPath": "static/image/s_home.png",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/video/video",
+				"iconPath": "static/image/video.png",
+				"selectedIconPath": "static/image/s_video.png",
+				"text": "视频"
+			},
+			{
+				"pagePath": "pages/person/person",
+				"iconPath": "static/image/person.png",
+				"selectedIconPath": "static/image/s_person.png",
+				"text": "个人中心"
+			}
+		]
+	},
+	"uniIdRouter": {}
 }
