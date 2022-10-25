@@ -86,13 +86,15 @@
 						}
 					})
 					if (res.code === 200) {
+						let regExp = /MUSIC_U=[^]*(?=MUSIC)/
+						let cookie = regExp.exec(res.cookie)[0] || ''
 						// 存储cookie
-						this.$store.commit('setUserCookie', res.cookie)
-						uni.setStorageSync('music_cookie', res.cookie)
+						this.$store.commit('setUserCookie', cookie)
+						uni.setStorageSync('music_cookie', cookie)
 						// 存储token
-						this.$store.commit('setUserToken', res.token)
+						this.$store.commit('setUserToken', cookie)
 						// 存储用户信息
-						this.$store.commit('setUserInfo', res.profile)
+						this.$store.commit('setUserInfo', cookie)
 						// 返回个人中心页
 						uni.navigateBack({
 							delta: 1

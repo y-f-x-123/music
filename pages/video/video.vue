@@ -69,7 +69,6 @@
 					data: {
 						id: this.videoTabsCurrent,
 						offset: 0,
-						timestamp: Date.now()
 					},
 				}).then(res => {
 					console.log(res);
@@ -84,7 +83,7 @@
 					url: `/video/group/list`
 				}).then(res => {
 					if (res.code === 200) {
-						this.videoTabsList = res.data.slice(0, 10)
+						this.videoTabsList = res.data.slice(10, 20)
 						// 设置当前视频标签的id
 						this.videoTabsCurrent = res.data[0].id || ''
 						// 获取视频标签下的视频
