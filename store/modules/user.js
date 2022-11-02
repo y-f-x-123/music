@@ -3,10 +3,10 @@ export default {
 		userCookie: '',
 		userToken: '',
 		userInfo: {
-			userName: '任性的小狼人',
-			userId: '1740054038',
+			userName: '',
+			userId: '',
 			userPic: '',
-			avatarUrl: 'https://p3.music.126.net/I4gVOrwWSp8FAq_C_AvT7Q==/109951165902034902.jpg'
+			avatarUrl: ''
 		}
 	},
 	getters: {

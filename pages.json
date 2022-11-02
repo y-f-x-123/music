@@ -3,15 +3,10 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [{
-			"path": "pages/video/video",
+			"path": "pages/songDetails/songDetails",
 			"style": {
-				"navigationBarTitleText": "火热视频"
-			}
-		},
-		{
-			"path": "pages/person/person",
-			"style": {
-				"navigationBarTitleText": "个人中心"
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
 			}
 		},
 		{
@@ -20,12 +15,35 @@
 		},
 
 		{
+			"path": "pages/video/video",
+			"style": {
+				"navigationBarTitleText": "火热视频",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/person/person",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+
+
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		}
 
+		, {
+			"path": "pages/song-list/song-list",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

@@ -10,9 +10,11 @@
 			}" lineWidth="0"></u-tabs>
 		</view>
 		<view class="video-scroll">
-			<scroll-view scroll-y class="video-scroll-box">
+			<scroll-view scroll-y refresher-enabled :refresher-threshold="1" :refresher-triggered="refreshLoading" @refresherrefresh="handlerefresh" @scrolltolower="handleTabs({more:true})"
+				class="video-scroll-box">
 				<view id="demo1" class="video-scroll-box-item" v-for="item in videoList" :key="item.data.vid">
-					<video v-if="playVideoId === item.data.vid" :src="playVideoUrl" controls class="video-scroll-box-item-video" autoplay></video>
+					<video v-if="playVideoId === item.data.vid" :src="playVideoUrl" class="video-scroll-box-item-video" play-btn-position="center" show-play-btn show-center-play-btn loop autoplay
+						enable-play-gesture></video>
 					<image v-else :src="item.data.coverUrl" style="height: 400rpx;width: 100%;" mode="aspectFit" @click="handlePlayVideo(item.data.vid)"></image>
 					<view class="video-scroll-box-item-text">
 						<view class="text">{{item.data.title}}</view>
@@ -23,10 +25,10 @@
 							</view>
 							<view class="right">
 								<view class="iconfont icon-aixin">
-									<text>99999</text>
+									<text>{{item.data.praisedCount}}</text>
 								</view>
 								<view class="iconfont icon-pinglun">
-									<text>11</text>
+									<text>{{item.data.commentCount}}</text>
 								</view>
 								<view class="iconfont icon-xianxingtubiaozhizuomoban-25"></view>
 							</view>
@@ -52,7 +54,11 @@
 				// 播放视频id
 				playVideoId: '',
 				// 播放视频地址
-				playVideoUrl: ''
+				playVideoUrl: '',
+				// 视频评论
+				videoReview: '',
+				// 下拉刷新状态
+				refreshLoading: false
 			}
 		},
 		onShow() {
@@ -63,7 +69,7 @@
 			// 点击视频标签,获取标签下的视频
 			handleTabs(option) {
 				// 设置当前视频标签的id
-				this.videoTabsCurrent = option ? option.id : this.videoTabsCurrent
+				this.videoTabsCurrent = option?.id ? option.id : this.videoTabsCurrent
 				this.$http({
 					url: `/video/group`,
 					data: {
@@ -71,11 +77,13 @@
 						offset: 0,
 					},
 				}).then(res => {
-					console.log(res);
 					if (res.code === 200) {
-						this.videoList = res.datas.slice(0, 10)
+						let sum = option?.more ? this.videoList.length + 10 : 10
+						this.videoList = [...res.datas.slice(0, sum).filter((item) => item.data.vid)]
 					}
-				}).catch(e => console.log(e))
+				}).catch(e => console.log(e)).finally(() => {
+					this.refreshLoading = false
+				})
 			},
 			// 获取视频分类列表
 			getVideoTabsList() {
@@ -83,7 +91,7 @@
 					url: `/video/group/list`
 				}).then(res => {
 					if (res.code === 200) {
-						this.videoTabsList = res.data.slice(10, 20)
+						this.videoTabsList = res.data.slice(0, 10)
 						// 设置当前视频标签的id
 						this.videoTabsCurrent = res.data[0].id || ''
 						// 获取视频标签下的视频
@@ -107,7 +115,12 @@
 						console.log(this.playVideoUrl);
 					}
 				})
-			}
+			},
+			// 视频下拉刷新
+			handlerefresh() {
+				this.refreshLoading = true
+				this.handleTabs()
+			},
 		}
 	}
 </script>

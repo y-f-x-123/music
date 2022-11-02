@@ -92,9 +92,9 @@
 						this.$store.commit('setUserCookie', cookie)
 						uni.setStorageSync('music_cookie', cookie)
 						// 存储token
-						this.$store.commit('setUserToken', cookie)
+						this.$store.commit('setUserToken', res.token)
 						// 存储用户信息
-						this.$store.commit('setUserInfo', cookie)
+						this.$store.commit('setUserInfo', res.profile)
 						// 返回个人中心页
 						uni.navigateBack({
 							delta: 1
