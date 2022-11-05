@@ -21,7 +21,7 @@
 						<view class="bottom">
 							<view class="left">
 								<image :src="item.data.creator.avatarUrl" mode="aspectFit"></image>
-								<text class="left-text">{{item.data.creator.signature}}</text>
+								<text class="left-text ellipsis">{{item.data.creator.signature}}</text>
 							</view>
 							<view class="right">
 								<view class="iconfont icon-aixin">
@@ -196,6 +196,7 @@
 							.left-text {
 								display: block;
 								width: 400rpx;
+								height: 42rpx;
 								overflow: hidden;
 								text-overflow: ellipsis;
 								white-space: nowrap;
