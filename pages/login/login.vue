@@ -90,11 +90,21 @@
 						let cookie = regExp.exec(res.cookie)[0] || ''
 						// 存储cookie
 						this.$store.commit('setUserCookie', cookie)
-						uni.setStorageSync('music_cookie', cookie)
 						// 存储token
 						this.$store.commit('setUserToken', res.token)
 						// 存储用户信息
 						this.$store.commit('setUserInfo', res.profile)
+
+						// 以下为 存储在locakstore
+						uni.setStorageSync('music_cookie', cookie)
+						uni.setStorageSync('userInfo', {
+							userName: res?.profile?.nickname || '',
+							userId: res?.profile?.userId || '',
+							userPic: res?.profile?.userPic || '',
+							backgroundUrl: res?.profile?.backgroundUrl || '',
+							avatarUrl: res?.profile?.avatarUrl || ''
+						})
+
 						// 返回个人中心页
 						uni.navigateBack({
 							delta: 1
@@ -112,7 +122,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	/* pages/login/login.wxss */
 	.wrapper {
 		position: relative;

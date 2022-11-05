@@ -155,15 +155,13 @@
 			},
 			// 获取登录用户信息
 			getUserInfo() {
-				const {
-					userId,
-					userName,
-					avatarUrl,
-				} = this.$store.getters.userInfo
-				this.userInfo = {
-					userId,
-					userName,
-					avatarUrl
+				try {
+					let result = uni.getStorageSync('userInfo');
+					let info = result ? result : this.$store.getters.userInfo
+					this.userInfo = info
+				} catch (e) {
+					//TODO handle the exception
+					console.log(e);
 				}
 			},
 
@@ -200,7 +198,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	/* pages/personal/personal.wxss */
 	.personalContainer {
 		width: 100%;

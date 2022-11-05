@@ -62,10 +62,41 @@
 			}
 		},
 		onShow() {
+			// 判断是否已登录，不登录不可以查看
+			this.isLogin()
 			// 获取视频标签
 			this.getVideoTabsList()
 		},
 		methods: {
+			// 判断是否登录，没有登录引导去登录
+			isLogin() {
+				let result = uni.getStorageSync('userInfo');
+				let info = result ? result : this.$store.getters.userInfo
+				if (!info.userId && !info.userName) {
+					uni.showModal({
+						title: '视频出错',
+						content: '登录账号即可观看火热视频，是否前往登录?',
+						fail() {
+							uni.switchTab({
+								url: `/pages/index/index`
+							})
+						},
+						success: (res) => {
+							if (res.confirm) {
+								uni.navigateTo({
+									url: `/pages/login/login`
+								})
+							} else if (res.cancel) {
+								uni.switchTab({
+									url: `/pages/index/index`
+								})
+							}
+						},
+					})
+					return
+				}
+			},
+
 			// 点击视频标签,获取标签下的视频
 			handleTabs(option) {
 				// 设置当前视频标签的id
@@ -125,7 +156,7 @@
 	}
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 	// 视频滚动区域
 	.video-scroll {
 		.video-scroll-box {

@@ -1,3 +1,11 @@
 page {
 	height: 100%;
+
+}
+
+/* 超出文本省略---单行文本 */
+.ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
